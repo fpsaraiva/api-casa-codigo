@@ -2,8 +2,10 @@ package br.com.fpsaraiva.apicasacodigo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
+@EnableJpaRepositories(enableDefaultTransactions = false)
 public class ApicasacodigoApplication {
 
 	public static void main(String[] args) {
