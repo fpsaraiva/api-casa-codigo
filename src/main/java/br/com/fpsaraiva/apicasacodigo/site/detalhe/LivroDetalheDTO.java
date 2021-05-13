@@ -3,6 +3,8 @@ package br.com.fpsaraiva.apicasacodigo.site.detalhe;
 import java.math.BigDecimal;
 
 import br.com.fpsaraiva.apicasacodigo.detalhelivro.Livro;
+import br.com.fpsaraiva.apicasacodigo.shared.Markdown;
+
 
 public class LivroDetalheDTO {
 
@@ -10,22 +12,32 @@ public class LivroDetalheDTO {
 	private String subtitulo;
 	private BigDecimal preco;
 	private String conteudo;
-	private String sumario;
+	private String sumarioOriginal;
 	private AutorLivroDetalheDTO autor;
 	private int numeroPaginas;
 	private String isbn; 
 	private Long id;
+	private String sumarioHtml;
 	
 	public LivroDetalheDTO(Livro livro) {
 		titulo = livro.getTitulo();
 		subtitulo = livro.getSubTitulo();
 		preco = livro.getPreco();
 		conteudo = livro.getConteudo();
-		sumario = livro.getSumario();
+		sumarioOriginal = livro.getSumario();
+		sumarioHtml = Markdown.renderHtml(livro.getSumario()); 
 		autor = new AutorLivroDetalheDTO(livro.getAutor());
 		numeroPaginas = livro.getNumeroPaginas();
 		isbn = livro.getIsbn();
 		id = livro.getId();
+	}
+
+	public String getSumarioHtml() {
+		return sumarioHtml;
+	}
+	
+	public Long getId() {
+		return id;
 	}
 
 	public String getTitulo() {
@@ -60,12 +72,12 @@ public class LivroDetalheDTO {
 		this.conteudo = conteudo;
 	}
 
-	public String getSumario() {
-		return sumario;
+	public String getSumarioOriginal() {
+		return sumarioOriginal;
 	}
 
-	public void setSumario(String sumario) {
-		this.sumario = sumario;
+	public void setSumarioOriginal(String sumarioOriginal) {
+		this.sumarioOriginal = sumarioOriginal;
 	}
 
 	public AutorLivroDetalheDTO getAutor() {
@@ -91,9 +103,5 @@ public class LivroDetalheDTO {
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
-
-	public Long getId() {
-		return id;
-	}
-
+	
 }
