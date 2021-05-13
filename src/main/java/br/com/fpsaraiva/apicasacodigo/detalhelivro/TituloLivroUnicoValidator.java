@@ -5,29 +5,26 @@ import java.util.Optional;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-public class TituloLivroUnicoValidator implements Validator {
+public class TituloLivroUnicoValidator extends CampoUnicoLivroValidator {
 	
 	private LivroRepository livroRepository;
 
 	public TituloLivroUnicoValidator(LivroRepository livroRepository) {
 		this.livroRepository = livroRepository;
 	}
-	
+
 	@Override
-	public boolean supports(Class<?> clazz) {
-		return NovoLivroForm.class.isAssignableFrom(clazz);
+	public Optional<Livro> buscaLivroPorCampo(NovoLivroForm novoLivroForm) {
+		// TODO Auto-generated method stub
+		return livroRepository.findByTitulo(novoLivroForm.getTitulo());
 	}
 
 	@Override
-	public void validate(Object target, Errors errors) {
-		NovoLivroForm form = (NovoLivroForm) target;
-		String titulo = form.getTitulo();
-		
-		Optional<Livro> possivelLivro = livroRepository.findByTitulo(titulo);
-		
-		if(possivelLivro.isPresent()) {
-			errors.rejectValue("isbn", null, "Já existe livro com esse título");
-		}
+	protected String getNomeCampoInvalido() {
+		// TODO Auto-generated method stub
+		return "titulo";
 	}
+	
+
 
 }
