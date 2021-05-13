@@ -15,13 +15,11 @@ public class TituloLivroUnicoValidator extends CampoUnicoLivroValidator {
 
 	@Override
 	public Optional<Livro> buscaLivroPorCampo(NovoLivroForm novoLivroForm) {
-		// TODO Auto-generated method stub
 		return livroRepository.findByTitulo(novoLivroForm.getTitulo());
 	}
 
 	@Override
 	protected String getNomeCampoInvalido() {
-		// TODO Auto-generated method stub
 		return "titulo";
 	}
 	
